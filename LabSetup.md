@@ -1,6 +1,8 @@
-# Lab ONE: Setting up our local development environment with DOCKER
+# Lab ONE
 
-## Downloading and installing docker on your local machine
+## Setting up your local development environment with Docker
+
+### Downloading and installing docker on your local machine
 
 As a way to ensure that everyone in the class is utilizing the same Operating System (and thus reducing issues with Mac vs Windows vs Linux stuff) we will be utlizing [Docker](https://www.docker.com/) to create "mini vms" for all of us.
 Yes...I'm aware that docker containers are *not* vms. What I'm actually after here is simply a thin image that allows us all to be on the same OS. This should save time for us down the road as we all won't have to download Vagrant and heavy ISO images to get everything running.
@@ -37,7 +39,7 @@ What we have done here is **build the image** that we will be utilizing. If ever
 
 7. Oh yeah, and `exit` from the container.
 
-## Now let's get set up on the AWS free tier
+### Now let's get set up on the AWS free tier
 
 1. For the next step we're going to set up our AWS accounts. This should be pretty straightforward and I'm not going to cover everything here...suffice to say please make sure that you have an aws [account](https://portal.aws.amazon.com/billing/signup#/start)
 
