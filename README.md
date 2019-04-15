@@ -1,4 +1,4 @@
-# Lab ONE
+# Lab Setup
 
 ## Setting up your local development environment with Docker
 
@@ -56,7 +56,7 @@ But again...seriously: don't do that. Create a user...OTHERWISE managing the roo
 
 6. Now we want to create a user. This is actually a pretty easy thing to do- click on the **users** link and click on **add user**
 
-7. Set up your user details as you'd like (make the user name your pet's name or something) and click on **both** Programmatic access and AWS Management Console access.
+7. Set up your user details as you'd like (make the user name your pet's name or something) and click on **both** Programmatic access and AWS Management Console access. Feel free to leave console password and require password resource checked off (this is what you will probably be doing when you create accounts for your devs).
 ![userCreate](./images/usercreate.png)
 
 8. Go to ADD USER TO GROUP. Here is where we would create a group for our users if we had a group we wanted to add them to (so, for instance, like "Accounting" or "Junior Devs" or something). Click on "Create Group" and you'll see a list of **policies**.
@@ -68,3 +68,17 @@ But again...seriously: don't do that. Create a user...OTHERWISE managing the roo
 
 11. Click on the **AWSLambdaBasicExecutionRole** and you can see there the basic JSON structure around how policies are dictated. One thing to notice here is the **"Resource": "*"** at the bottom. If you add the **arn** of a resource (a lambda function, DynamoDB table, EC2 instance or Redshift db) to this resource section then the policy will apply __only__ to that resource (and you can have multiple resources there if you wish):
 ![jsondoc](./images/iamgroups.png)
+
+12. For now let's start by giving our user access to s3 (to start). Yes- it's possible to give **AdministratorAccess** to a user but this is not advised for anything less than your most senior developer (or someone you really, really trust). For now we're going to be adding permissions one at a time in order to get a tightly controlled user set up.
+
+
+13. So let's start with just s3.... grant full access to AmazonS3FullAccess by clicking on **Amazons3FullAccess** and then clicking **create Group**
+
+14. Click on **create Tags**. Do this if you want...it's pretty self explanatory. Next click **Next: Review** and then **Create User**
+
+15. __Voila__: you have created your first user! Congratulations. __Do Not Click Beyond This Page Until You Have Downloaded the Secret and Access Keys In CSV format__
+![usercreated](./images/createduser.png)
+
+16. Download the csvs. **These contain your secret and access keys and need to be kept secret!**
+
+17. So now we have our aws keys. At this point I want to show you how to set up the credentials on your host machines...which you'll want to do with your root access credentials to effectively utilize the aws cli.
