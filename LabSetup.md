@@ -49,4 +49,20 @@ What we have done here is **build the image** that we will be utilizing. If ever
 4. **IF** you want to use the root user to access and create everything for this class (seriously though...don't...it's terrible practice) you can skip ahead. 
 But again...seriously: don't do that. Create a user...OTHERWISE managing the root user comes with all of the issues you'd expect (managing permissions, removing/deleting or adding permissions, etc)
 
-5. So let's create a user in the IAM management console
+5. So let's create a user in the IAM management console. In the **services** search bar at the top of your console page type in **IAM**. That should take you to your IAM console screen:
+![iamconsole](./images/iamconsole.png)
+
+6. Now we want to create a user. This is actually a pretty easy thing to do- click on the **users** link and click on **add user**
+
+7. Set up your user details as you'd like (make the user name your pet's name or something) and click on **both** Programmatic access and AWS Management Console access.
+![userCreate](./images/usercreate.png)
+
+8. Go to ADD USER TO GROUP. Here is where we would create a group for our users if we had a group we wanted to add them to (so, for instance, like "Accounting" or "Junior Devs" or something). Click on "Create Group" and you'll see a list of **policies**.
+
+9. These are pre-built policies that AWS has been kind enough to create for us. In the Group Name bar type `tutorial-group`.
+
+10. IN the search bar next to **Filter policies** do a search for **Lambda** functions. You should see something like this:
+![lambdacreate](./images/lambdapolicy.png)
+
+11. Click on the **AWSLambdaBasicExecutionRole** and you can see there the basic JSON structure around how policies are dictated. One thing to notice here is the **"Resource": "*"** at the bottom. If you add the **arn** of a resource (a lambda function, DynamoDB table, EC2 instance or Redshift db) to this resource section then the policy will apply __only__ to that resource (and you can have multiple resources there if you wish):
+![jsondoc](./images/iamgroups.png)
