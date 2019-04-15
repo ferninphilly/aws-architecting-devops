@@ -82,3 +82,5 @@ But again...seriously: don't do that. Create a user...OTHERWISE managing the roo
 16. Download the csvs. **These contain your secret and access keys and need to be kept secret!**
 
 17. So now we have our aws keys. At this point I want to show you how to set up the credentials on your host machines...which you'll want to do with your root access credentials to effectively utilize the aws cli.
+
+### Managing keys on your host machine
