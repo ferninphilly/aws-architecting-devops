@@ -10,7 +10,7 @@ To download Docker on your local machine go [here](https://www.docker.com/get-st
 Once it is installed you should see a docker image in your "running apps" bar (on mac and windows they are different).
 Open up a command line editor and type in `docker info`. If you get a bunch of stuff- congrats! You've got DOCKER!
 
-### Creating your docker container
+#### Creating your docker container
 
 1. Navigate to the root directory of this github repository. You should see a Dockerfile there. Open that up and you'll see a basic roadmap for what we're looking to create and add to our docker container. The **ENV** command is (obviously) environment variables whilst the **RUN** command is.....well...you can probably figure that one out. As you can see- we are installing a [ubuntu](https://www.ubuntu.com/) container just because...I like it better than CENTOs. If you'd like you can peruse the different packages we'll be installing.
 
@@ -39,7 +39,7 @@ What we have done here is **build the image** that we will be utilizing. If ever
 
 7. Oh yeah, and `exit` from the container.
 
-### Now let's get set up on the AWS free tier
+#### Now let's get set up on the AWS free tier
 
 1. For the next step we're going to set up our AWS accounts. This should be pretty straightforward and I'm not going to cover everything here...suffice to say please make sure that you have an aws [account](https://portal.aws.amazon.com/billing/signup#/start)
 
@@ -83,4 +83,51 @@ But again...seriously: don't do that. Create a user...OTHERWISE managing the roo
 
 17. So now we have our aws keys. At this point I want to show you how to set up the credentials on your host machines...which you'll want to do with your root access credentials to effectively utilize the aws cli.
 
-### Managing keys on your host machine
+#### Managing keys on your host machine
+
+1. Our next step is to set up our keys locally so that we can use them with the AWS CLI. Fortunately the aws cli makes this extremely easy. If you have not yet installed the aws CLI on your local host machine __and only if you want to__ Click [here](https://docs.amazonaws.cn/en_us/cli/latest/userguide/install-windows.html) for windows install instructions and [here](https://docs.aws.amazon.com/cli/latest/userguide/install-macos.html) for mac instructions. 
+
+2. There are several ways to manage our aws keys that allow us to effectively use them for the AWS command line interface. We're going to demonstrate two separate methods here- one for your host and one for the docker container:
+    
+    a: For managing keys on your **host** machine simply type `aws configure` into your command line. This will bring up a command line that asks for your aws access key ID. Go ahead and copy that from the .csv you downloaded and hit enter.
+
+    b: Same thing for the Secret Access Key
+
+    c: For default region type in `eu-west-1` (for Ireland)
+
+    d: For default output format choose JSON
+
+    ...and __voila__! We have a working aws configuration! To check on it:
+
+    a: On MAC type `cat ~/.aws/credentials` and you should see something that looks like this: 
+        ```
+        [default]
+        aws_access_key_id = 123PLEASEDoNtHACKME
+        aws_secret_access_key = EKOERJKOEREROIER*#$#$@$##$
+        ```
+    b: On WINDOWS navigate to `C:\Users\USERNAME\.aws\credentials` and you can open the file in the text editor.
+
+Now- much like anything else- you guys might want to, over time, add in other credentials to these basic ones. Right now these credentials are listed as `default`. Let's upgrade that by creating them as a "profile"...which is also simple: type in `aws configure --profile tutorial` and go through the process again. When you open up the credentials again you should see a new profile header: **[tutorial]** there. When we run commands from the CLI using this profile we simply need to append a `--profile tutorial` to the end.
+
+#### Managing credentials on your Docker Container
+
+As Docker containers are intended to be ephemeral the management of AWS keys is somewhat different here...though this also works for your host machine.
+Basically...any time a command is run from the AWS cli there is a search done for the following environment variables:
+
+1. AWS_ACCESS_KEY_ID
+2. AWS_SECRET_ACCESS_KEY
+3. AWS_DEFAULT_REGION
+
+So you can always `export AWS_ACCESS_KEY_ID=yourkeyhere` to add the appropriate access key for the session you are working on. 
+To add environment variables to docker containers you have two options- less ideal and more ideal. 
+The less ideal option is that you can use named environment variables in the dockerfile...in other words:
+`ENV AWS_ACCESS_KEY_ID HereIsMyAccessKey`
+
+This is not ideal, however as that means that you can't commit your Dockerfile...which is terrible. What I usually recommend instead is either mount the keyfiles directly into the container OR pass them in as -e environment variables when we run the container...so:
+`docker run -ti --rm --name devaws -v $HOME/aws-architecting-devops/app:/app -e AWS_ACCESS_KEY_ID=YOURACCESSKEY -e AWS_SECRET_ACCESS_KEY=YOURSECRETKEY <YOURIMAGE>`
+
+Once you've done that it might be worth adding that to your ~/.bash_profile (or whatever windows uses). 
+
+Now that we're set up for success let's get started!
+
+
