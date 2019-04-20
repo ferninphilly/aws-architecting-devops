@@ -1,0 +1,43 @@
+
+resource TYPE NAME {
+    CONFIG ...
+    [count = COUNT]
+    [depends_on = [NAME, ...]]
+    [provider = PROVIDER]
+
+    [LIFECYCLE]
+
+    [CONNECTION]
+    [PROVISIONER ...]
+}
+where CONFIG is:
+
+KEY = VALUE
+
+KEY {
+    CONFIG
+}
+
+where LIFECYCLE is:
+
+lifecycle {
+    [create_before_destroy = true|false]
+    [prevent_destroy = true|false]
+    [ignore_changes = [ATTRIBUTE NAME, ...]]
+}
+where CONNECTION is:
+
+connection {
+    KEY = VALUE
+    ...
+}
+where PROVISIONER is:
+
+provisioner NAME {
+    CONFIG ...
+
+    [when = "create"|"destroy"]
+    [on_failure = "continue"|"fail"]
+
+    [CONNECTION]
+}
