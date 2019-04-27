@@ -1,4 +1,4 @@
-# Lab Two: Creating our first VPC with Terraform
+# Lab Two: Creating our first resources with Terraform
 
 So now that we have our local development environment set up within (and without) of our docker container we are ready to start creating aws assets using terraform. 
 
