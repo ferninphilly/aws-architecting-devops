@@ -20,12 +20,22 @@ variable "private_subnet_cidr" {
 
 variable "ami" {
   description = "Amazon Linux AMI"
-  default = "ami-4fffc834"
+  default = "ami-40d28157"
 }
 
 variable "key_path" {
   description = "SSH Public Key path"
   default = "/Users/fernandopombeiro/.ssh/id_rsa.pub"
+}
+
+variable "script_source" {
+    description = "The source of our initialization script for our ec2 instances"
+    default = "/Users/fernandopombeiro/github_projects/aws-architecting-devops/app/terraform/install.sh"
+}
+
+variable "private_key" {
+    description = "SSH Private Key Path"
+    default = "/Users/fernandopombeiro/.ssh/id_rsa"
 }
 
 variable "dbtype" {

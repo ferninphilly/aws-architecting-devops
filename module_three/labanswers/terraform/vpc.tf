@@ -2,6 +2,7 @@
 resource "aws_vpc" "devintelpractice" {
   cidr_block = "${var.vpc_cidr}"
   enable_dns_hostnames = true
+  enable_dns_support = true
 
   tags {
     Name = "develop-intelligence-test"
@@ -46,6 +47,7 @@ resource "aws_internet_gateway" "gw" {
 }
 
 
+
 # Define the route table
 resource "aws_route_table" "web-public-rt" {
   vpc_id = "${aws_vpc.devintelpractice.id}"
@@ -74,6 +76,12 @@ resource "aws_security_group" "sgweb" {
   ingress {
     from_port = 80
     to_port = 80
+    protocol = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+    ingress {
+    from_port = 8080
+    to_port = 8080
     protocol = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
@@ -110,26 +118,31 @@ resource "aws_security_group" "sgweb" {
 resource "aws_security_group" "sgdb"{
   name = "sg_test_web"
   description = "Allow traffic from public subnet"
-
+  
+  #This will allow ingress from ANYWHERE and should be commented out in production
+  # Here we are allowing ingress *only* from the public subnet where our ec2 instance lives
   ingress {
     from_port = 3306
     to_port = 3306
     protocol = "tcp"
-    cidr_blocks = ["${var.public_subnet_cidr}"]
+    cidr_blocks = ["0.0.0.0/0"]
+    #cidr_blocks = ["${var.public_subnet_cidr}"]
   }
 
   ingress {
     from_port = -1
     to_port = -1
     protocol = "icmp"
-    cidr_blocks = ["${var.public_subnet_cidr}"]
+    cidr_blocks = ["0.0.0.0/0"]
+    #cidr_blocks = ["${var.public_subnet_cidr}"]
   }
 
   ingress {
     from_port = 22
     to_port = 22
     protocol = "tcp"
-    cidr_blocks = ["${var.public_subnet_cidr}"]
+    cidr_blocks = ["0.0.0.0/0"]
+    #cidr_blocks = ["${var.public_subnet_cidr}"]
   }
 
   vpc_id = "${aws_vpc.devintelpractice.id}"
