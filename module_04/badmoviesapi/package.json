@@ -1,0 +1,17 @@
+{
+  "name": "badmoviesapi",
+  "version": "1.0.0",
+  "description": "Bad movies api example",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "keywords": [
+    "bad"
+  ],
+  "author": "Fernando Pombeiro",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.449.0"
+  }
+}
