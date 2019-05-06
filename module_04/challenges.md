@@ -7,3 +7,5 @@
 3. Change the endpoint to only allow GET from our endpoint.
 
 4. Create a brand new architecture diagram for an application that passes data from a kinesis stream to a lambda function for transformation which then passes to a DynamoDB instance for review and then on to an EC2 instance Elastic Block store to s3. There will also be a webserver on the ec2 instance that will use APIGateway to make the EBS data available for an API.  
+
+5. Destroy everything we just made with terraform. 

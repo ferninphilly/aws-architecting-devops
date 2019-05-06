@@ -1,0 +1,14 @@
+{
+  "name": "fargateapp",
+  "version": "1.0.0",
+  "description": "Quotes from THE ROOM",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Fernando Pombeiro",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}

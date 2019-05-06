@@ -2,7 +2,7 @@
 
 ## Introduction
 
-So here's the sccenario: your team has come to you and stated that they want to create a crap movie application in AWS. The garbage-film application must be **serverless**. It will have a **front end**, a **back end** and communication between them will be handled via an api. It will live in a VPC with web access.
+So here's the scenario: your team has come to you and stated that they want to create a crap movie application in AWS. The garbage-film application must be **serverless**. It will have a **front end**, a **back end** and communication between them will be handled via an api. It will live in a VPC with web access. This will be the situation through the next two modules
 
 You, being the genius AWS architect that you are, immediately think through the following:
 
@@ -190,3 +190,50 @@ Once this is done click on the URL. What do you see?
 Congratulations on your own small gift to the internet!
 __Now imagine doing this with a more complex code base!!__
 
+20. So now we have an application with LAMBDAS and API gateways. Let's move on to making this a **genuine** backend with DynamoDB.
+
+## Deploying our back end (Dynamo)
+So now we have the beginnings of our api (we'll deploy the express application in the next section) we'll want to have the back end ready to go. Let's get the DynamoDB section deployed by creating a dynamodb resource in a new **dynamo.tf** folder in your terraform folder:
+
+```
+resource "aws_dynamodb_table" "badmovie-dynamodb-table" {
+  name = "CodingTips"
+  read_capacity = 5
+  write_capacity = 5
+  hash_key = "Title"
+  range_key = "Date"
+
+  attribute = [
+    {
+      name = "Title"
+      type = "S"
+    },
+    {
+      name = "Date"
+      type = "N"
+    }]
+}
+```
+
+Now this means, of course, that we will also need an **iam policy** so that we do not run into issues SO... add this to your **dynamo.tf**
+
+```
+resource "aws_iam_role_policy" "dynamodb-lambda-policy"{
+  name = "dynamodb_lambda_policy"
+  role = "${aws_iam_role.lambda-iam-role.id}"
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "dynamodb:*"
+      ],
+      "Resource": "${aws_dynamodb_table.badmovie-dynamodb-table.arn}"
+    }
+  ]
+}
+EOF
+}
+```
