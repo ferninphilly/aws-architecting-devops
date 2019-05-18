@@ -160,6 +160,7 @@ output "base_url" {
   value = "${aws_api_gateway_deployment.example.invoke_url}"
 }
 ```
+
 18. Let's make one more quick change so that we can control our versioning better (and roll back and forward as necessary!). Remember that _v1.0.0_ that we had in our s3 bucket as a directory? Well- let's add in a **variable** there that we can control easily. Add this to the bottom of the **lambda.tf** file:
 
 ```
@@ -237,3 +238,46 @@ resource "aws_iam_role_policy" "dynamodb-lambda-policy"{
 EOF
 }
 ```
+
+21. Congratulations! You should have a working infrastructure set up! The next thing we need to do is associate all of these pieces with our previously created VPC for network security purposes!
+
+### Adding in our VPC layer
+
+1. So we now have the skeleton of what we want to deploy BUT- we are seriously lacking in two areas (from the previous section): **Monitoring** and **Security**. So we're going to use one of the biggest advantages of terraform which is the ease with which we can move these pieces around and create associations with ease. **AS AN ARCHITECT** it is important that you control these pieces and ensure that everything that is being deployed in this code base is associated to a proper, secure VPC and IAM role. 
+
+2. In that thinking let's `cp ./module_03/labanswers/terraform/vpc.tf` into this directory (and just like that! We have a vpc!).
+
+3. Along with these we'll also need some variables to come over so let's create our **variables.tf** document and add these three (from module 3):
+
+```
+variable "vpc_cidr" {
+  description = "CIDR for the VPC"
+  default = "10.0.0.0/16"
+}
+
+variable "public_subnet_cidr" {
+  description = "CIDR for the public subnet"
+  default = "10.0.1.0/24"
+}
+
+variable "private_subnet_cidr" {
+  description = "CIDR for the private subnet"
+  default = "10.0.2.0/24"
+}
+```
+
+3. Now let' associate our lambdas with the vpc by adding in the SUBNET IDs and SECURITY GROUPS to the lambdas:
+
+```
+  vpc_config {
+      subnet_ids = ["${aws_db_subnet_group.beastmastersubgroup.subnet_ids}"]
+      security_group_ids = ["${aws_security_group.sgweb.id}"]
+
+  }
+  ```
+
+  And we should be good to go! 
+
+  4. Run your plan/apply again and we should have an operational front and back end. As long as this is working and you can see the advantages go ahead and `terraform destroy` this section an we'll move on to the next one.
+
+  5. The **takeaway** here is the ease with which you can associate different code aspects in a VPC as well as how you would manage making sure that your infrastructure as code is working. Managing terraform and ensuring that it is working is a bit of a beast- but it's worth it if you can get these things working correctly and it's essential to the SECURITY pillar of your **well architected framework**.

@@ -9,8 +9,8 @@ resource "aws_cloudwatch_log_group" "troll2logs" {
 }
 
 # See also the following AWS managed policy: AWSLambdaBasicExecutionRole
-resource "aws_iam_policy" "lambda_logging" {
-  name = "lambda_logging"
+resource "aws_iam_policy" "bm_lambda_logging" {
+  name = "bm_lambda_logging"
   path = "/"
   description = "IAM policy for logging from a lambda"
 
@@ -33,7 +33,7 @@ EOF
 
 resource "aws_iam_role_policy_attachment" "lambda_logs" {
   role = "${aws_iam_role.lambda_exec.name}"
-  policy_arn = "${aws_iam_policy.lambda_logging.arn}"
+  policy_arn = "${aws_iam_policy.bm_lambda_logging.arn}"
 }
 
 resource "aws_lambda_function" "troll2lambda" {
@@ -48,14 +48,18 @@ resource "aws_lambda_function" "troll2lambda" {
   # exported in that file.
   handler = "main.handler"
   runtime = "nodejs8.10"
+  vpc_config {
+      subnet_ids = ["${aws_db_subnet_group.beastmastersubgroup.subnet_ids}"]
+      security_group_ids = ["${aws_security_group.sgweb.id}"]
 
+  }
   role = "${aws_iam_role.lambda_exec.arn}"
 }
 
 # IAM role which dictates what other AWS services the Lambda function
 # may access.
 resource "aws_iam_role" "lambda_exec" {
-  name = "serverless_example_lambda"
+  name = "lambda_exec_role"
 
   assume_role_policy = <<EOF
 {

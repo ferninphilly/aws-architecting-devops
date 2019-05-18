@@ -30,7 +30,7 @@ variable "key_path" {
 
 variable "script_source" {
     description = "The source of our initialization script for our ec2 instances"
-    default = "/Users/fernandopombeiro/github_projects/aws-architecting-devops/app/terraform/install.sh"
+    default = "/Users/fernandopombeiro/github_projects/aws-architecting-devops/module_01/app/terraform/install.sh"
 }
 
 variable "private_key" {
