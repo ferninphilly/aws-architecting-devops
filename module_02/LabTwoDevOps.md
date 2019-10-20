@@ -11,11 +11,11 @@
 
 4. Navigate onto your AWS account by logging in manually. That should bring up a screen that looks like this:
 
-![awsscreen](../../images/awsscreen.png)
+![awsscreen](../images/awsscreen.png)
 
 5. In the search bar type in "ec2". This will bring up the ec2 screen:
 
-![ec2screen](../../images/ec2screen.png)
+![ec2screen](../images/ec2screen.png)
 
 5. Now we'll go over a quick review of this screen that will show us everything we might be interested in.
   * On the left side we have kind of a "list of services offered by EC2- including load balancers, and auto scalers
