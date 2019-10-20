@@ -17,49 +17,49 @@
 
 ![ec2screen](../images/ec2screen.png)
 
-5. Now we'll go over a quick review of this screen that will show us everything we might be interested in.
+6. Now we'll go over a quick review of this screen that will show us everything we might be interested in.
   * On the left side we have kind of a "list of services offered by EC2- including load balancers, and auto scalers
   * In the middle we have a full list of all of the services currently running including the number of instances.
   * We have the big, fancy, blue "Launch INSTANCE" button there. Let's launch an instance...
 
-  ![launchinstance](../images/launchinstance.png)
+![launchinstance](../images/launchinstance.png)
 
-  6. Now...for this example let's go with a basic AWS instance that we want to launch. This will give us an idea of how we create, one at a time, a very basic EC2 instance for use in AWS. Amazon offers a basic AMI (Amazon Machine Image) that is compatible with RHEL.
+  7. Now...for this example let's go with a basic AWS instance that we want to launch. This will give us an idea of how we create, one at a time, a very basic EC2 instance for use in AWS. Amazon offers a basic AMI (Amazon Machine Image) that is compatible with RHEL.
 
-  7. Choose the top option (Amazon Linux 2) and the FREE-Micro Instance (for free micro-tier).
+  8. Choose the top option (Amazon Linux 2) and the FREE-Micro Instance (for free micro-tier).
 
-  ![freetier](../images/freetier.png)
+![freetier](../images/freetier.png)
 
-  8. Obviously the micro-tier will not fit your needs 100% of the time but we are just here to do a quick demo of what this system will look like....
+  9. Obviously the micro-tier will not fit your needs 100% of the time but we are just here to do a quick demo of what this system will look like....
 
-  9. On the next page we can put our system inside things like "security groups" which tie back to our VPC networks which we'll get into in the next module. For now just stick with the defaults and let's launch this thing...
+  10. On the next page we can put our system inside things like "security groups" which tie back to our VPC networks which we'll get into in the next module. For now just stick with the defaults and let's launch this thing...
 
-  10. The next screen to come up will be a popup that will invite you to create your ssh key.
+  11. The next screen to come up will be a popup that will invite you to create your ssh key.
   Now- your ssh key is basically the thing on your computer that allows access to this system. Think of it as the computer-password that allows access (you use ssh keys when you are pushing to github for example). The system is saying to you here "okay- fine...I'll create this instance but how do you want to access it??"
 
   ![sshpopup](../images/sshpopup.png)
 
-  11. If you need to create an ssh key (depending on the type of system you are using) you can do it manually OR you can choose to "Create a new keypair" from the drop down. Let's go ahead and create a new keypair. Save the keypair as a PEM.
+  12. If you need to create an ssh key (depending on the type of system you are using) you can do it manually OR you can choose to "Create a new keypair" from the drop down. Let's go ahead and create a new keypair. Save the keypair as a PEM.
 
-  12. Now, and this is an important side note, **assuming that you were creating this machine for a separate user you would have to pass them the keypair for them to be able to access their bright, fancy new virtual machine**
+  13. Now, and this is an important side note, **assuming that you were creating this machine for a separate user you would have to pass them the keypair for them to be able to access their bright, fancy new virtual machine**
 
-  13. Click the acknowledgement and then **Launch instances**. This part will take a few minutes while your instance provisions.
+  14. Click the acknowledgement and then **Launch instances**. This part will take a few minutes while your instance provisions.
 
-  14. While the instance is being created let's go ahead and add a name for it (anything you'd like..."Practice instance" or something...)
+  15. While the instance is being created let's go ahead and add a name for it (anything you'd like..."Practice instance" or something...)
 
-  ![practiceinstance](../images/practiceinstance.png)
+![practiceinstance](../images/practiceinstance.png)
 
-  15. Let's also take this opportunity to take a quick look at the section in the bottom half. There are a couple of things in this section that we need to take note of...
+  16. Let's also take this opportunity to take a quick look at the section in the bottom half. There are a couple of things in this section that we need to take note of...
 
   * **Security Groups:** This is how you will control access to your virtual machine instance (going forward known as your ec2 instance). 
       * Click on the "View Inbound" and "View Outbound" rules to take a quick look at how those are interacting with the "outside world". We'll come back to this later but it's essential to understand how these are working. 
   * **Public DNS**: This is the default web address that is facing the "outside world". If you have this server added to a network somewhere then THIS is the "phone number" for how you will call this instance up.
 
-  16. Anyways- hopefully within a reasonable timeframe our instance has launched! Let's take a quick look around! Right click on the instance and you should get a popup that looks something like this:
+  17. Anyways- hopefully within a reasonable timeframe our instance has launched! Let's take a quick look around! Right click on the instance and you should get a popup that looks something like this:
 
   ![accessec2instance](../images/accessec2instance.png)
 
-  17. SO....this is telling us a couple of things:
+  18. SO....this is telling us a couple of things:
   
   * ONE thing this is telling us is that our ec2 instance will work with our PEM key that we downloaded...which is good news. 
   * The other thing it's telling us is that our PEM key must have a minimum security setting (that's what the **chmod** does- changes the permission around the key file. Must be at 400- which makes it pretty darn secure)
