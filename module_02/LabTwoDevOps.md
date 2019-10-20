@@ -11,24 +11,24 @@
 
 4. Navigate onto your AWS account by logging in manually. That should bring up a screen that looks like this:
 
-![awsscreen](../images2/awsscreen.png)
+![awsscreen](./awsscreen.png)
 
 5. In the search bar type in "ec2". This will bring up the ec2 screen:
 
-![ec2screen](../images2/ec2screen.png)
+![ec2screen](./ec2screen.png)
 
 6. Now we'll go over a quick review of this screen that will show us everything we might be interested in.
   * On the left side we have kind of a "list of services offered by EC2- including load balancers, and auto scalers
   * In the middle we have a full list of all of the services currently running including the number of instances.
   * We have the big, fancy, blue "Launch INSTANCE" button there. Let's launch an instance...
 
-![launchinstance](../images2/launchinstance.png)
+![launchinstance](./launchinstance.png)
 
   7. Now...for this example let's go with a basic AWS instance that we want to launch. This will give us an idea of how we create, one at a time, a very basic EC2 instance for use in AWS. Amazon offers a basic AMI (Amazon Machine Image) that is compatible with RHEL.
 
   8. Choose the top option (Amazon Linux 2) and the FREE-Micro Instance (for free micro-tier).
 
-![freetier](../images2/freetier.png)
+![freetier](./freetier.png)
 
   9. Obviously the micro-tier will not fit your needs 100% of the time but we are just here to do a quick demo of what this system will look like....
 
@@ -37,7 +37,7 @@
   11. The next screen to come up will be a popup that will invite you to create your ssh key.
   Now- your ssh key is basically the thing on your computer that allows access to this system. Think of it as the computer-password that allows access (you use ssh keys when you are pushing to github for example). The system is saying to you here "okay- fine...I'll create this instance but how do you want to access it??"
 
-  ![sshpopup](../images2/sshpopup.png)
+  ![sshpopup](./sshpopup.png)
 
   12. If you need to create an ssh key (depending on the type of system you are using) you can do it manually OR you can choose to "Create a new keypair" from the drop down. Let's go ahead and create a new keypair. Save the keypair as a PEM.
 
@@ -47,7 +47,7 @@
 
   15. While the instance is being created let's go ahead and add a name for it (anything you'd like..."Practice instance" or something...)
 
-![practiceinstance](../images2/practiceinstance.png)
+![practiceinstance](./practiceinstance.png)
 
   16. Let's also take this opportunity to take a quick look at the section in the bottom half. There are a couple of things in this section that we need to take note of...
 
@@ -57,7 +57,7 @@
 
   17. Anyways- hopefully within a reasonable timeframe our instance has launched! Let's take a quick look around! Right click on the instance and you should get a popup that looks something like this:
 
-  ![accessec2instance](../images2/accessec2instance.png)
+  ![accessec2instance](./accessec2instance.png)
 
   18. SO....this is telling us a couple of things:
   
@@ -126,19 +126,19 @@ sudo vi index.html
 
 13. Go back to your management console. Let's see if we have access from **outside** of this instance! Go to your ec2 address: **ec2-63-35-193-125.eu-west-1.compute.amazonaws.com** (for me)
 
-![epicfail](../images2/epicfail.jpg)
+![epicfail](./epicfail.jpg)
 
 14. NOW...this doesn't seem to be working. *Why do you think this is??*
 
 15. Navigate over to the **security groups** section of your ec2 instance and let's take a look at what's there. Do you see the security groups? Click on **view inbound rules**
 
-![inboundrules](../images2/inboundrules.png)
+![inboundrules](./inboundrules.png)
 
 16. So...we have some issues. Unless we're coming in through port 22 we're getting NOWHERE on this site and, considering that the http default port is **80** it is doubtful that we'll be able to get in via port 22. ERGO....*we need to open up port 80!*
 
 17. So let's click on the **security group** to the left of that (possibly called **launch wizard** or something similar). Once you are in there take a quick look at the **inbound** tab at the bottom of the screen. Obviously we want to **edit** that one to allow traffic in through port....well...let's just let ALL traffic in...
 
-![inboundrule](../images2/inboundrule.png)
+![inboundrule](./inboundrule.png)
 
 18. So let's open that up on **all tcp** images to **anyone**.
 (Hopefully you can see where this would be a SUPER useful tool for network security!)
