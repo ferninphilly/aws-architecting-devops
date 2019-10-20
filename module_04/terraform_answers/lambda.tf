@@ -48,11 +48,6 @@ resource "aws_lambda_function" "troll2lambda" {
   # exported in that file.
   handler = "main.handler"
   runtime = "nodejs8.10"
-  vpc_config {
-      subnet_ids = ["${aws_db_subnet_group.beastmastersubgroup.subnet_ids}"]
-      security_group_ids = ["${aws_security_group.sgweb.id}"]
-
-  }
   role = "${aws_iam_role.lambda_exec.arn}"
 }
 
