@@ -1,0 +1,10 @@
+{
+  "lambda": {
+    "role": "nodejsapp-executor",
+    "name": "nodejsapp",
+    "region": "us-west-2"
+  },
+  "api": {
+    "id": "hu3b2r4eid"
+  }
+}

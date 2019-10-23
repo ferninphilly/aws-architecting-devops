@@ -60,3 +60,8 @@ What's the difference? Basically...one faces the internet and one basically exis
 6. Let's go over to our VPC and choose "Subnets"-> Create New Subnets. Now let's create a new Subnet with CIDR **10.0.2.0/24**
 
 ![subnets.png](../images/subnets.png)
+
+
+## Launching an instance from the command line
+
+1. Another neat thing is working from the AWS CLI
