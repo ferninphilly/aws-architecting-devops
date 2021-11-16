@@ -12,6 +12,6 @@
   "author": "Fernando Pombeiro",
   "license": "ISC",
   "dependencies": {
-    "aws-sdk": "^2.449.0"
+    "aws-sdk": "^2.814.0"
   }
 }
